@@ -86,8 +86,8 @@ button:hover { background: #3b82c6; }
 </div>
 <h2>Identificação do Usuário</h2>
 <div class="input-group">
-<input type="email" id="emailInput" placeholder="Seu e-mail" value="davibelchior61@gmail.com">
-<input type="text" id="nomeInput" placeholder="Seu nome" value="Davi">
+<input type="email" id="emailInput" placeholder="Seu e-mail" value="">
+<input type="text" id="nomeInput" placeholder="Digite seu nome..." value="">
 <button onclick="atualizarIdentificacao()">Salvar Perfil</button>
 </div>
 </div>
@@ -109,10 +109,10 @@ button:hover { background: #3b82c6; }
 <div id="adminTab" class="tab-content">
 <h2>Painel Admin Mestre</h2>
 <div class="admin-panel">
-<p><strong>Acesso exclusivo:</strong> Davibelchior61@gmail.com</p>
+<p><strong>Acesso exclusivo para gerenciamento</strong></p>
 <div id="adminStatusAlert"></div>
 <h3>Atualizar Caixinha Vermelha (Travas & Memória Fixa)</h3>
-<textarea id="caixinhaInput" rows="3" placeholder="Ex: Não gerar imagem, Não gerar vídeo, Prioridade total no projeto X..."></textarea>
+<textarea id="caixinhaInput" rows="3" placeholder="Ex: Não gerar imagem, Não gerar vídeo..."></textarea>
 <div class="input-group" style="margin-top: 10px;">
 <button onclick="salvarCaixinhaVermelha()">Aplicar Regra/Trava</button>
 <button class="btn-danger" onclick="limparCaixinhaVermelha()">Limpar Trava</button>
@@ -128,8 +128,8 @@ button:hover { background: #3b82c6; }
 <div id="sobreTab" class="tab-content">
 <h2>Sobre o Dake</h2>
 <div class="info-box">
-<p>"Esta IA não foi feita para usar para trabalho; foi feita para companhia, diversão, conversar, perguntar, ideias de projetos, mas ela também pode ser usada para trabalho. Foi difícil criar isso, mas eu sempre gostei de criar apps."</p>
-<p style="text-align: right; font-weight: bold;">— Criado por Davi.</p>
+<p>"Esta IA não foi feita para usar para trabalho; foi feita para companhia, diversão, conversar, perguntar, ideias de projetos, mas também pode ser usada para trabalho."</p>
+<p style="text-align: right; font-weight: bold;">— Projeto Dake-IA.</p>
 </div>
 </div>
 </div>
@@ -146,9 +146,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
-// 2. CHAVE DA API GEMINI MANTIDA EXATAMENTE COMO ENVIADA
-const GEMINI_API_KEY = "AQ.Ab8RN6Lc1FwMHwIzwpiw3t5JtgqmjF";
 
 // ESTADO GLOBAL DO APP
 let chatHistory = [];
@@ -184,41 +181,20 @@ function checkEnter(event) {
   }
 }
 
-// ENVIAR MENSAGEM PARA A IA
-async function enviarMensagem() {
+// ENVIAR MENSAGEM (PRONTO PARA RECEBER A SUA TÉCNICA)
+function enviarMensagem() {
   const input = document.getElementById('userInput');
   const text = input.value.trim();
   if (!text) return;
 
-  const nomeUsuario = document.getElementById('nomeInput').value || 'Davi';
+  const nomeUsuario = document.getElementById('nomeInput').value.trim() || 'Usuário';
   appendMessage(nomeUsuario, text, 'user');
   input.value = '';
 
-  // Montagem do Prompt com Trava da Caixinha Vermelha
-  let promptSistema = "Você é o Dake-IA. Responda de forma amigável e prestativa.\n";
-  if (caixinhaVermelhaText) {
-    promptSistema += `[REGRA CRÍTICA/CAIXINHA VERMELHA]: ${caixinhaVermelhaText}\n`;
-  }
-
-  try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [
-          { role: 'user', parts: [{ text: `${promptSistema}\nUsuário (${nomeUsuario}): ${text}` }] }
-        ]
-      })
-    });
-
-    const data = await response.json();
-    if (data.candidates && data.candidates[0].content.parts[0].text) {
-      const reply = data.candidates[0].content.parts[0].text;
-      appendMessage('Dake-IA', reply, 'bot');
-    }
-  } catch (err) {
-    // Silencioso, sem poluir a tela com alertas desnecessários
-  }
+  // Resposta simulada/preparada para encaixar a sua técnica
+  setTimeout(() => {
+    appendMessage('Dake-IA', 'Mensagem recebida com sucesso! Sistema Firebase ativo e pronto para a sua técnica.', 'bot');
+  }, 500);
 }
 
 // FUNÇÕES DE CONFIGURAÇÃO E PAINEL ADMIN
@@ -227,8 +203,12 @@ function salvarConfiguracoes() {
 }
 
 function atualizarIdentificacao() {
-  const nome = document.getElementById('nomeInput').value;
-  alert(`Perfil atualizado para ${nome}!`);
+  const nome = document.getElementById('nomeInput').value.trim();
+  if (nome) {
+    alert(`Perfil atualizado para ${nome}!`);
+  } else {
+    alert("Por favor, digite um nome válido.");
+  }
 }
 
 function salvarCaixinhaVermelha() {
@@ -287,3 +267,4 @@ function sairMultiplayer() {
 </script>
 </body>
 </html>
+​AQ.Ab8RN6Lc1FwMHwIzwpiw3t5JtgqmjF
