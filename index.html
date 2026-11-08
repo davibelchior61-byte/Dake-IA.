@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dake-IA</title>
 <!-- Firebase Web SDK (v9 via CDN) -->
+  ​AQ.Ab8RN6Lc1FwMHwIzwpiw3t5JtgqmjF
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -181,7 +182,7 @@ function checkEnter(event) {
   }
 }
 
-// ENVIAR MENSAGEM (PRONTO PARA RECEBER A SUA TÉCNICA)
+// ENVIAR MENSAGEM (LIVRE PARA VOCÊ APLICAR A SUA TÉCNICA)
 function enviarMensagem() {
   const input = document.getElementById('userInput');
   const text = input.value.trim();
@@ -191,10 +192,7 @@ function enviarMensagem() {
   appendMessage(nomeUsuario, text, 'user');
   input.value = '';
 
-  // Resposta simulada/preparada para encaixar a sua técnica
-  setTimeout(() => {
-    appendMessage('Dake-IA', 'Mensagem recebida com sucesso! Sistema Firebase ativo e pronto para a sua técnica.', 'bot');
-  }, 500);
+  // Nenhuma resposta automática presa aqui. O campo está livre para a sua implementação!
 }
 
 // FUNÇÕES DE CONFIGURAÇÃO E PAINEL ADMIN
@@ -267,4 +265,3 @@ function sairMultiplayer() {
 </script>
 </body>
 </html>
-​AQ.Ab8RN6Lc1FwMHwIzwpiw3t5JtgqmjF
