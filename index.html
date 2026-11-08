@@ -24,7 +24,6 @@ h1, h2, h3 { text-align: center; color: #4da6ff; margin-top: 0; }
 .message { padding: 10px 14px; border-radius: 8px; max-width: 80%; line-height: 1.4; word-wrap: break-word; }
 .message.user { background: #4da6ff; color: #1e1e2f; align-self: flex-end; font-weight: 500; }
 .message.bot { background: #3f3f5a; color: #fff; align-self: flex-start; }
-.message.system { background: #ff4d4d; color: white; align-self: center; text-align: center; font-size: 0.85em; }
 /* Formulários e Controles */
 .input-group { display: flex; gap: 10px; margin-top: 10px; }
 input[type="text"], input[type="email"], textarea { flex: 1; padding: 10px; border-radius: 6px; border: 1px solid #3f3f5a; background: #1e1e2f; color: white; }
@@ -216,11 +215,9 @@ async function enviarMensagem() {
     if (data.candidates && data.candidates[0].content.parts[0].text) {
       const reply = data.candidates[0].content.parts[0].text;
       appendMessage('Dake-IA', reply, 'bot');
-    } else {
-      appendMessage('Sistema', 'Não foi possível obter resposta da IA. Verifique a chave API.', 'system');
     }
   } catch (err) {
-    appendMessage('Sistema', 'Erro ao se conectar com a IA.', 'system');
+    // Silencioso, sem poluir a tela com alertas desnecessários
   }
 }
 
@@ -257,7 +254,6 @@ function enviarComandoAdmin() {
 
 function limparMemoriaLocal() {
   document.getElementById('chat-box').innerHTML = "";
-  appendMessage('Sistema', 'Histórico de chat limpo.', 'system');
 }
 
 function baixarAppAPK() {
